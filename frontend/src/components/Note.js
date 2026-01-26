@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_URL from '../utils/apiConfig';
 import ConfirmationModal from './ConfirmationModal';
 import { toast } from 'react-toastify';
 
@@ -16,7 +17,7 @@ const Note = ({ note, fetchNotes }) => {
 
   const handleEdit = async () => {
     try {
-      await axios.put(`/api/notes/${note._id}`, { content: editedContent }, getAuthHeaders());
+      await axios.put(`${API_URL}/notes/${note._id}`, { content: editedContent }, getAuthHeaders());
       toast.success("Note updated");
       fetchNotes(note.groupId);
       setIsEditing(false);
@@ -33,7 +34,7 @@ const Note = ({ note, fetchNotes }) => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      await axios.delete(`/api/notes/${note._id}`, getAuthHeaders());
+      await axios.delete(`${API_URL}/notes/${note._id}`, getAuthHeaders());
       toast.success("Note deleted");
       fetchNotes(note.groupId);
     } catch (error) {

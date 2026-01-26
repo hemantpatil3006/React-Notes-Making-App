@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_URL from '../utils/apiConfig';
 import { IoMdSend } from "react-icons/io"; 
 import { toast } from 'react-toastify';
 // Standard CSS used
@@ -16,7 +17,7 @@ const NoteInput = ({ groupId, fetchNotes }) => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        '/api/notes', 
+        `${API_URL}/notes`, 
         { groupId, content: noteContent },
         { headers: { Authorization: token } }
       );

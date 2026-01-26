@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_URL from '../../utils/apiConfig';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -26,7 +27,7 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:4000/api/auth/register', formData);
+      await axios.post(`${API_URL}/auth/register`, formData);
       toast.success("Registration Successful! Please login.");
       navigate('/login');
     } catch (err) {
