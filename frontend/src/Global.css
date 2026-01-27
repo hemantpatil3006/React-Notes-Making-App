@@ -56,6 +56,6 @@ code {
 }
 
 /* Fix Toastify being blurred behind modals */
-.Toastify {
-    z-index: 1000001 !important;
+.Toastify__toast-container {
+    z-index: 999999 !important;
 }
