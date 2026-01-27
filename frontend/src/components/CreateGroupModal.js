@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
+import API_URL from "../utils/apiConfig";
 import { toast } from 'react-toastify';
 // Standard CSS used
 
@@ -34,7 +35,7 @@ const CreateGroupModal = ({ onClose, fetchGroups, onGroupsUpdate, groups }) => {
     try {
       const token = localStorage.getItem('token');
       const res = await axios.post(
-        "/api/groups", 
+        `${API_URL}/groups`, 
         { name: groupName, color },
         { headers: { Authorization: token } }
       );

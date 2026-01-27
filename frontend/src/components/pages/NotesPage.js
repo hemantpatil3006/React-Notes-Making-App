@@ -4,7 +4,9 @@ import Note from "../Note";
 import CreateGroupModal from "../CreateGroupModal";
 import NoteInput from "../NoteInput";
 import axios from "axios";
+import API_URL from "../../utils/apiConfig";
 import { IoIosSearch as Search, IoMdArrowBack } from "react-icons/io";
+import { MdNoteAdd } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import FallbackPage from "./FallbackPage";
@@ -17,6 +19,7 @@ const NotesPage = () => {
   const [searchText, setSearchText] = useState("");
   const [showGroupSearch, setShowGroupSearch] = useState(false);
   const [groupSearchText, setGroupSearchText] = useState("");
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   
   const navigate = useNavigate();
 
@@ -26,6 +29,15 @@ const NotesPage = () => {
       navigate('/login');
     }
   }, [navigate]);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
 
   const getAuthHeaders = () => {
     return { headers: { Authorization: localStorage.getItem('token') } };
@@ -40,7 +52,7 @@ const NotesPage = () => {
   // ✅ Fetch Groups with Server-Side Search
   const fetchGroups = useCallback(async (searchQuery = "") => {
     try {
-      let url = "/api/groups";
+      let url = `${API_URL}/groups`;
       if (searchQuery.trim()) {
         url += `?search=${encodeURIComponent(searchQuery)}`;
       }
@@ -53,7 +65,6 @@ const NotesPage = () => {
         localStorage.setItem('notesGroups', JSON.stringify(response.data));
       }
     } catch (error) {
-      console.error("Groups fetch error:", error);
       if (error.response && error.response.status === 401) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -69,14 +80,13 @@ const NotesPage = () => {
   const fetchNotes = useCallback(async (groupId, searchQuery = "") => {
     if (!groupId) return;
     try {
-      let url = `/api/notes/${groupId}`;
+      let url = `${API_URL}/notes/${groupId}`;
       if (searchQuery.trim()) {
         url += `?search=${encodeURIComponent(searchQuery)}`;
       }
       const response = await axios.get(url, getAuthHeaders());
       setNotes(response.data);
     } catch (error) {
-      console.error("Notes fetch error:", error);
       if (error.response && error.response.status === 401) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -112,7 +122,7 @@ const NotesPage = () => {
   // Delete Group Handler
   const handleDeleteGroup = async (groupId) => {
     try {
-      await axios.delete(`/api/groups/${groupId}`, getAuthHeaders());
+      await axios.delete(`${API_URL}/groups/${groupId}`, getAuthHeaders());
       toast.success("Group deleted successfully");
       
       if (selectedGroup && selectedGroup._id === groupId) {
@@ -121,7 +131,6 @@ const NotesPage = () => {
       }
       fetchGroups(groupSearchText); // Refresh list
     } catch (error) {
-      console.error("Delete failed:", error);
       toast.error("Failed to delete group");
     }
   };
@@ -170,6 +179,9 @@ const NotesPage = () => {
           <>
             <div className="sidebar-header" onClick={() => setSelectedGroup(null)}>Pocket Notes</div>
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                <button className="toggle-button" onClick={toggleTheme}>
+                  {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                </button>
                 <button className="toggle-button" onClick={toggleGroupSearch}>Search</button>
                 <button className="logout-button" onClick={handleLogout}>Logout</button>
             </div>
@@ -227,9 +239,16 @@ const NotesPage = () => {
             </div>
             
             <div className="notes-list">
-              {notes.map((note) => (
-                <Note key={note._id} note={note} fetchNotes={() => fetchNotes(selectedGroup._id, searchText)} />
-              ))}
+              {notes.length > 0 ? (
+                notes.map((note) => (
+                  <Note key={note._id} note={note} fetchNotes={() => fetchNotes(selectedGroup._id, searchText)} />
+                ))
+              ) : (
+                <div className="empty-notes-message">
+                   <MdNoteAdd size={60} style={{ marginBottom: '16px', opacity: 0.5 }} />
+                   <p>{searchText ? "No notes matching your search..." : "No notes yet. Start typing below!"}</p>
+                </div>
+              )}
             </div>
             
             <NoteInput groupId={selectedGroup._id} fetchNotes={() => fetchNotes(selectedGroup._id, searchText)} />

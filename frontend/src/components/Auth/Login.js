@@ -9,6 +9,7 @@ const Login = () => {
     email: '',
     password: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,6 +26,15 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    setIsLoading(true);
     try {
       const res = await axios.post(`${API_URL}/auth/login`, formData);
       localStorage.setItem('token', res.data.token);
@@ -33,6 +43,8 @@ const Login = () => {
       navigate('/');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Login failed');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -56,8 +68,11 @@ const Login = () => {
             value={password}
             onChange={onChange}
             required
+            disabled={isLoading}
           />
-          <button type='submit'>Login</button>
+          <button type='submit' disabled={isLoading}>
+            {isLoading ? 'Logging in...' : 'Login'}
+          </button>
         </form>
         <Link to='/register' className='auth-link'>
           Don't have an account? Sign Up

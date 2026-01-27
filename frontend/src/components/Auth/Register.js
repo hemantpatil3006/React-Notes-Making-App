@@ -10,6 +10,7 @@ const Register = () => {
     email: '',
     password: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,12 +27,28 @@ const Register = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    // Client-side validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+
+    setIsLoading(true);
     try {
       await axios.post(`${API_URL}/auth/register`, formData);
       toast.success("Registration Successful! Please login.");
       navigate('/login');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -63,8 +80,11 @@ const Register = () => {
             value={password}
             onChange={onChange}
             required
+            disabled={isLoading}
           />
-          <button type='submit'>Register</button>
+          <button type='submit' disabled={isLoading}>
+            {isLoading ? 'Registering...' : 'Register'}
+          </button>
         </form>
         <Link to='/login' className='auth-link'>
           Already have an account? Login

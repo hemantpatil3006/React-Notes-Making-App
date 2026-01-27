@@ -19,7 +19,6 @@ router.post("/", async (req, res) => {
     const saved = await note.save();
     res.status(201).send(saved);
   } catch (error) {
-    console.error("❌ Note ERROR:", error.message);
     res.status(500).json({ error: error.message });
   }
 });
@@ -38,7 +37,6 @@ router.get("/:groupId", async (req, res) => {
     const notes = await Note.find(query);
     res.send(notes);
   } catch (error) {
-    console.error("GET notes error:", error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -58,7 +56,6 @@ router.put("/:id", async (req, res) => {
     const updated = await note.save();
     res.send(updated);
   } catch (error) {
-    console.error("PUT note error:", error);
     res.status(500).json({ error: "Failed to update note" });
   }
 });
@@ -74,7 +71,6 @@ router.delete("/:id", async (req, res) => {
     await Note.findByIdAndDelete(req.params.id);
     res.json({ message: "Note deleted successfully" });
   } catch (error) {
-    console.error("DELETE note error:", error);
     res.status(500).json({ error: "Failed to delete note" });
   }
 });

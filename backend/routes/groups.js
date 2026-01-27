@@ -17,7 +17,6 @@ router.post("/", async (req, res) => {
     const saved = await group.save();
     res.status(201).send(saved);
   } catch (error) {
-    console.error("❌ Group ERROR:", error.message);
     res.status(500).json({ error: error.message });
   }
 });
@@ -31,7 +30,6 @@ router.get("/", async (req, res) => {
     const groups = await Group.find(query);
     res.send(groups);
   } catch (error) {
-    console.error("GET groups error:", error);
     res.status(500).json({ error: error.message });
   }
 });

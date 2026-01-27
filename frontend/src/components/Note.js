@@ -98,6 +98,7 @@ const Note = ({ note, fetchNotes }) => {
                     className="action-btn note-delete-btn"
                     onClick={handleDeleteClick}
                     disabled={isDeleting}
+                    aria-label="Delete note"
                 >
                     Delete
                 </button>
@@ -106,6 +107,7 @@ const Note = ({ note, fetchNotes }) => {
                 <button 
                     className="action-btn note-edit-btn"
                     onClick={() => setIsEditing(true)}
+                    aria-label="Edit note"
                 >
                     Edit
                 </button>

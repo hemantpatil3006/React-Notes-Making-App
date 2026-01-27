@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const rateLimit = require("express-rate-limit");
 const groupRoutes = require("./routes/groups");
 const noteRoutes = require("./routes/notes");
 require("dotenv").config();
@@ -8,7 +9,19 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(cors());
+// Rate Limiting for Auth
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: { message: "Too many requests from this IP, please try again after 15 minutes" }
+});
+
+app.use(cors({
+  origin: true, // Allows all origins, including production and localhost
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(express.json());
 
 // Request Logger
@@ -19,7 +32,7 @@ app.use((req, res, next) => {
 
 app.use("/api/groups",  groupRoutes);
 app.use("/api/notes", noteRoutes);
-app.use("/api/auth", require("./routes/auth"));
+app.use("/api/auth", authLimiter, require("./routes/auth"));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -55,6 +68,9 @@ mongoose
 const startServer = () => {
   server = app.listen(port, () => {
     console.log(`Server running on port ${port}`);
+    if (!process.env.JWT_SECRET) {
+      console.warn("WARNING: JWT_SECRET is not set. Using fallback secret.");
+    }
   });
 
   server.on('error', (err) => {

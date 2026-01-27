@@ -34,6 +34,8 @@ const NoteGroup = ({ group, onSelect, selectedGroup, deleteGroup }) => {
     <div
       className="note-group"
       onClick={onSelect}
+      role="button"
+      aria-label={`Select group ${group.name}`}
       style={{
         backgroundColor: selectedGroup?._id === group._id ? "rgba(47, 47, 47, 0.17)" : "white",
         opacity: isDeleting ? 0.7 : 1,
@@ -51,6 +53,8 @@ const NoteGroup = ({ group, onSelect, selectedGroup, deleteGroup }) => {
       
       <div 
          onClick={handleDeleteClick}
+         role="button"
+         aria-label={`Delete group ${group.name}`}
          style={{ padding: '8px', zIndex: 10, display: 'flex', alignItems: 'center' }}
       >
         <DeleteIcon

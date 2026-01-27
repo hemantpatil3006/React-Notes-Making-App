@@ -14,6 +14,17 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ message: "Please fill all fields" });
     }
 
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: "Invalid email format" });
+    }
+
+    // Password length validation
+    if (password.length < 6) {
+      return res.status(400).json({ message: "Password must be at least 6 characters long" });
+    }
+
     // Check if user exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -42,7 +53,6 @@ router.post("/register", async (req, res) => {
       },
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Server Error" });
   }
 });
@@ -85,7 +95,6 @@ router.post("/login", async (req, res) => {
       },
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Server Error" });
   }
 });
