@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './NoteInput.css';
 import axios from 'axios';
 import API_URL from '../utils/apiConfig';
 import { IoMdSend } from "react-icons/io"; 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import "./NotesPage.css";
 import NoteGroup from "../NoteGroup";
 import Note from "../Note";
 import CreateGroupModal from "../CreateGroupModal";

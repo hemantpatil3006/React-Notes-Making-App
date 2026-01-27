@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Modal.css";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import API_URL from "../utils/apiConfig";

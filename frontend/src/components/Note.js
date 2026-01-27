@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Note.css';
 import axios from 'axios';
 import API_URL from '../utils/apiConfig';
 import ConfirmationModal from './ConfirmationModal';

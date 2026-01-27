@@ -1,0 +1,173 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.modal-content {
+    background: var(--modal-bg);
+    border-radius: 12px;
+    padding: 24px;
+    width: 360px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 40px var(--shadow);
+    z-index: 100000;
+    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+.create-group-modal {
+    width: 440px;
+    padding: 30px;
+    text-align: left;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-message {
+    color: var(--text-primary);
+    font-size: 16px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.modal-header {
+    margin: 0 0 24px 0;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--text-primary);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 12px;
+}
+
+.modal-content:not(.create-group-modal) .modal-actions {
+    justify-content: center;
+}
+
+.modal-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.delete-btn {
+    background: #DC3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+    box-shadow: 0 2px 5px rgba(220, 53, 69, 0.3);
+}
+
+.cancel-btn {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+.cancel-btn:hover {
+    background: var(--bg-primary);
+    border-color: var(--accent-primary);
+}
+
+.create-btn {
+    background-color: var(--accent-primary);
+    color: var(--header-text);
+    width: 140px;
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.create-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--text-primary);
+    min-width: 110px;
+}
+
+.form-input {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 20px;
+    border: 2px solid var(--border);
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+    border-color: var(--accent-primary);
+}
+
+.color-container {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.color-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.1s;
+}
+
+.color-circle.selected {
+    border-color: var(--text-primary);
+}
+
+.color-circle:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 500px) {
+    .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

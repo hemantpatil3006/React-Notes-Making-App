@@ -1,0 +1,55 @@
+.note-input-form {
+    width: 100%;
+    display: flex; 
+    align-items: center; 
+    background: var(--input-bg); 
+    border-radius: 9px;
+    padding: 11px;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+}
+
+.note-input-form textarea {
+    flex: 1; 
+    border: none; 
+    outline: none; 
+    resize: none; 
+    padding: 0 10px;
+    height: 100px;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--text-primary);
+    background: var(--input-bg);
+}
+
+.send-btn-icon {
+    background: none; 
+    border: none; 
+    cursor: default;
+    padding: 0 0 0 10px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--icon-inactive);
+    transition: color 0.2s ease;
+}
+
+.send-btn-icon.active {
+    cursor: pointer;
+    color: var(--accent-primary);
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    font-weight: 600;
+    font-size: 24px;
+    width: 100%;
+    background: var(--header-bg);
+    color: var(--header-text);
+    margin-bottom: 0px;
+    border-radius: 0px !important;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}

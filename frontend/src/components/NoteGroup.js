@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./NoteGroup.css";
 import { MdDeleteOutline as DeleteIcon } from "react-icons/md";
 import ConfirmationModal from "./ConfirmationModal";
 
