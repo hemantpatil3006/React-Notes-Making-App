@@ -58,11 +58,14 @@ const NotesPage = () => {
       }
       
       const response = await axios.get(url, getAuthHeaders());
-      setGroups(response.data);
-      
-      // Only cache if no search (initial state)
-      if (!searchQuery.trim()) {
-        localStorage.setItem('notesGroups', JSON.stringify(response.data));
+      if (Array.isArray(response.data)) {
+        setGroups(response.data);
+        // Only cache if no search (initial state)
+        if (!searchQuery.trim()) {
+          localStorage.setItem('notesGroups', JSON.stringify(response.data));
+        }
+      } else {
+        setGroups([]);
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -85,7 +88,11 @@ const NotesPage = () => {
         url += `?search=${encodeURIComponent(searchQuery)}`;
       }
       const response = await axios.get(url, getAuthHeaders());
-      setNotes(response.data);
+      if (Array.isArray(response.data)) {
+        setNotes(response.data);
+      } else {
+        setNotes([]);
+      }
     } catch (error) {
       if (error.response && error.response.status === 401) {
         localStorage.removeItem('token');
@@ -189,7 +196,7 @@ const NotesPage = () => {
         )}
         
         <div className="sidebar-content">
-          {groups.map((group) => (
+          {Array.isArray(groups) && groups.map((group) => (
             <NoteGroup
               key={group._id}
               group={group}
