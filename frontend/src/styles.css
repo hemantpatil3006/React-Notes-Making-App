@@ -236,8 +236,8 @@ code {
 }
 
 .note-edit-btn {
-    border-color: #001F8B;
-    color: #001F8B;
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
 }
 
 .note-edit-mode {
@@ -288,7 +288,7 @@ code {
 
 .save-edit-btn {
     border: none;
-    background: #001F8B;
+    background: var(--accent-primary);
     color: white;
 }
 
@@ -362,10 +362,11 @@ code {
     width: 100%;
     display: flex; 
     align-items: center; 
-    background: white; 
+    background: var(--input-bg); 
     border-radius: 9px;
     padding: 11px;
     box-sizing: border-box;
+    border: 1px solid var(--border);
 }
 
 .note-input-form textarea {
@@ -438,7 +439,7 @@ code {
 .auth-form h2 {
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #16008B;
+    color: var(--accent-secondary);
 }
 
 .auth-form input {
@@ -453,7 +454,7 @@ code {
 .auth-form button {
     width: 100%;
     padding: 12px;
-    background: #16008B;
+    background: var(--accent-secondary);
     color: white;
     border: none;
     border-radius: 4px;
@@ -469,7 +470,7 @@ code {
     display: block;
     text-align: center;
     margin-top: 1rem;
-    color: #16008B;
+    color: var(--accent-secondary);
     text-decoration: none;
 }
 
@@ -594,7 +595,7 @@ code {
 .form-label {
     font-weight: 600;
     font-size: 16px;
-    color: #000;
+    color: var(--text-primary);
     min-width: 110px;
 }
 
@@ -632,7 +633,7 @@ code {
 }
 
 .color-circle.selected {
-    border-color: #000;
+    border-color: var(--text-primary);
 }
 
 .color-circle:hover {
