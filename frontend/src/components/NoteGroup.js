@@ -32,12 +32,11 @@ const NoteGroup = ({ group, onSelect, selectedGroup, deleteGroup }) => {
 
   return (
     <div
-      className="note-group"
+      className={`note-group ${selectedGroup?._id === group._id ? 'selected' : ''}`}
       onClick={onSelect}
       role="button"
       aria-label={`Select group ${group.name}`}
       style={{
-        backgroundColor: selectedGroup?._id === group._id ? "rgba(47, 47, 47, 0.17)" : "white",
         opacity: isDeleting ? 0.7 : 1,
         position: 'relative'
       }}
