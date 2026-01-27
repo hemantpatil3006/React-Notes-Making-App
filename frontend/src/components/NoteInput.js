@@ -59,7 +59,6 @@ const NoteInput = ({ groupId, fetchNotes }) => {
             >
                 <IoMdSend 
                     size={28} 
-                    color={isActive ? "#001F8B" : "#ABABAB"} 
                 />
             </button>
         </form>
