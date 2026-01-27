@@ -50,7 +50,8 @@ const CreateGroupModal = ({ onClose, fetchGroups, onGroupsUpdate, groups }) => {
       onClose();
     } catch (error) {
       console.error("❌ Create failed:", error.response?.data || error.message);
-      toast.error("Failed to create group.");
+      const errorMessage = error.response?.data?.error || error.response?.data?.message || "Failed to create group.";
+      toast.error(errorMessage);
     }
   };
 

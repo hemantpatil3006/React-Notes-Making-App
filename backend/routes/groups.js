@@ -9,8 +9,19 @@ router.use(authMiddleware);
 router.post("/", async (req, res) => {
   try {
     const { name, color } = req.body;
+
+    // Check if group with same name already exists for this user
+    const existingGroup = await Group.findOne({ 
+      userId: req.user.id, 
+      name: { $regex: new RegExp(`^${name.trim()}$`, "i") } 
+    });
+
+    if (existingGroup) {
+      return res.status(400).json({ error: "A group with this name already exists." });
+    }
+
     const group = new Group({ 
-        name, 
+        name: name.trim(), 
         color,
         userId: req.user.id 
     });
