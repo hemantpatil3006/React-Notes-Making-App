@@ -50,6 +50,12 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Fix Toastify being blurred behind modals */
+.Toastify {
+    z-index: 1000001 !important;
 }
