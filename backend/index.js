@@ -38,6 +38,18 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get("/health", (req, res) => {
+  res.json({ 
+    status: "OK", 
+    message: "Backend is running",
+    routes: {
+      auth: "/api/auth",
+      groups: "/api/groups",
+      notes: "/api/notes"
+    }
+  });
+});
+
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error("Global Error Handler:", err.stack);
