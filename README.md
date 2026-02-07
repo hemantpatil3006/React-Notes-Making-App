@@ -37,6 +37,7 @@ Pocket Notes is a responsive, secure, and feature-rich note-making application d
 
 ```text
 ├── backend
+│   ├── controllers # Business logic (MVC Pattern)
 │   ├── middleware  # Auth and validation middleware
 │   ├── models      # Mongoose schemas (User, Group, Note)
 │   ├── routes      # API endpoints
@@ -44,8 +45,9 @@ Pocket Notes is a responsive, secure, and feature-rich note-making application d
 ├── frontend
 │   ├── src
 │   │   ├── components # Reusable UI components
+│   │   │   ├── *.module.css # Modular CSS files
 │   │   ├── assets     # Static assets (images, icons)
-│   │   ├── styles.css # Main styling file
+│   │   ├── Global.css # Global styles
 │   │   └── App.js     # Main application logic
 └── netlify.toml       # Deployment configuration
 ```

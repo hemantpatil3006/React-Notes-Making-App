@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Auth.css';
+import styles from './Auth.module.css';
 import axios from 'axios';
 import API_URL from '../../utils/apiConfig';
 import { Link, useNavigate } from 'react-router-dom';
@@ -50,8 +50,8 @@ const Login = () => {
   };
 
   return (
-    <div className='auth-container'>
-      <div className='auth-form'>
+    <div className={styles['auth-container']}>
+      <div className={styles['auth-form']}>
         <h2>Login</h2>
         <form onSubmit={onSubmit}>
           <input
@@ -75,7 +75,7 @@ const Login = () => {
             {isLoading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-        <Link to='/register' className='auth-link'>
+        <Link to='/register' className={styles['auth-link']}>
           Don't have an account? Sign Up
         </Link>
       </div>

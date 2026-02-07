@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "./NotesPage.css";
+import styles from "./NotesPage.module.css";
 import NoteGroup from "../NoteGroup";
 import Note from "../Note";
 import CreateGroupModal from "../CreateGroupModal";
@@ -162,41 +162,41 @@ const NotesPage = () => {
   };
 
   return (
-    <div className="notes-page">
-      <div className={`sidebar ${selectedGroup ? 'hidden-on-mobile' : ''}`} style={{ position: 'relative' }}>
+    <div className={styles['notes-page']}>
+      <div className={`${styles.sidebar} ${selectedGroup ? styles['hidden-on-mobile'] : ''}`} style={{ position: 'relative' }}>
         {showGroupSearch ? (
           <>
             <form onSubmit={handleSearch} style={{ display: "flex" }}>
               <input
                 type="text"
-                className="search-input"
+                className={styles['search-input']}
                 value={groupSearchText}
                 onChange={(e) => setGroupSearchText(e.target.value)}
               />
               <button
                 type="submit"
-                className="search-button"
+                className={styles['search-button']}
                 onClick={() => setGroupSearchText("")}
               >
                 <Search />
               </button>
             </form>
-            <button className="toggle-button" onClick={toggleGroupSearch}>Hide</button>
+            <button className={styles['toggle-button']} onClick={toggleGroupSearch}>Hide</button>
           </>
         ) : (
           <>
-            <div className="sidebar-header" onClick={() => setSelectedGroup(null)}>Pocket Notes</div>
+            <div className={styles['sidebar-header']} onClick={() => setSelectedGroup(null)}>Pocket Notes</div>
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                <button className="toggle-button" onClick={toggleTheme}>
+                <button className={styles['toggle-button']} onClick={toggleTheme}>
                   {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
                 </button>
-                <button className="toggle-button" onClick={toggleGroupSearch}>Search</button>
-                <button className="logout-button" onClick={handleLogout}>Logout</button>
+                <button className={styles['toggle-button']} onClick={toggleGroupSearch}>Search</button>
+                <button className={styles['logout-button']} onClick={handleLogout}>Logout</button>
             </div>
           </>
         )}
         
-        <div className="sidebar-content">
+        <div className={styles['sidebar-content']}>
           {Array.isArray(groups) && groups.map((group) => (
             <NoteGroup
               key={group._id}
@@ -211,9 +211,9 @@ const NotesPage = () => {
           ))}
         </div>
         
-        <div className="sidebar-button-container">
+        <div className={styles['sidebar-button-container']}>
           <button 
-            className="add-group-btn" 
+            className={styles['add-group-btn']}
             onClick={() => setShowModal(true)}
             style={{ cursor: 'pointer', pointerEvents: 'auto' }}
           >
@@ -222,12 +222,12 @@ const NotesPage = () => {
         </div>
       </div>
 
-      <div className={`main-content ${!selectedGroup ? 'hidden-on-mobile' : ''}`}>
+      <div className={`${styles['main-content']} ${!selectedGroup ? styles['hidden-on-mobile'] : ''}`}>
         {selectedGroup ? (
           <>
-            <div className="note-header">
+            <div className={styles['note-header']}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div className="back-icon" onClick={() => setSelectedGroup(null)}>
+                <div className={styles['back-icon']} onClick={() => setSelectedGroup(null)}>
                   <IoMdArrowBack />
                 </div>
                 <span>{selectedGroup.name}</span>
@@ -235,24 +235,24 @@ const NotesPage = () => {
               <form onSubmit={handleSearch} style={{ display: "flex" }}>
                 <input
                   type="text"
-                  className="search-input"
+                  className={styles['search-input']}
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   placeholder="Search notes..."
                 />
-                <button className="search-button" type="submit" onClick={() => setSearchText("")}>
+                <button className={styles['search-button']} type="submit" onClick={() => setSearchText("")}>
                   <Search />
                 </button>
               </form>
             </div>
             
-            <div className="notes-list">
+            <div className={styles['notes-list']}>
               {notes.length > 0 ? (
                 notes.map((note) => (
                   <Note key={note._id} note={note} fetchNotes={() => fetchNotes(selectedGroup._id, searchText)} />
                 ))
               ) : (
-                <div className="empty-notes-message">
+                <div className={styles['empty-notes-message']}>
                    <MdNoteAdd size={60} style={{ marginBottom: '16px', opacity: 0.5 }} />
                    <p>{searchText ? "No notes matching your search..." : "No notes yet. Start typing below!"}</p>
                 </div>

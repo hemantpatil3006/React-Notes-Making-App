@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Note.css';
+import styles from './Note.module.css';
 import axios from 'axios';
 import API_URL from '../utils/apiConfig';
 import ConfirmationModal from './ConfirmationModal';
@@ -57,24 +57,24 @@ const Note = ({ note, fetchNotes }) => {
 
   return (
     <>
-    <div className="note" style={{ opacity: isDeleting ? 0.5 : 1 }}>
+    <div className={styles.note} style={{ opacity: isDeleting ? 0.5 : 1 }}>
       {isEditing ? (
-        <div className="note-edit-mode">
+        <div className={styles['note-edit-mode']}>
           <textarea
-            className="note-textarea"
+            className={styles['note-textarea']}
             value={editedContent}
             onChange={(e) => setEditedContent(e.target.value)}
             rows={4}
           />
-          <div className="note-actions" style={{ justifyContent: 'flex-end' }}>
+          <div className={styles['note-actions']} style={{ justifyContent: 'flex-end' }}>
              <button 
-                className="action-btn cancel-edit-btn"
+                className={`${styles['action-btn']} ${styles['cancel-edit-btn']}`}
                 onClick={() => setIsEditing(false)}
              >
                 Cancel
              </button>
              <button 
-                className="action-btn save-edit-btn"
+                className={`${styles['action-btn']} ${styles['save-edit-btn']}`}
                 onClick={handleEdit}
                 disabled={!editedContent.trim()}
              >
@@ -84,19 +84,19 @@ const Note = ({ note, fetchNotes }) => {
         </div>
       ) : (
         <div>
-          <p className="note-content">
+          <p className={styles['note-content']}>
               {note.content}
           </p>
           
-          <div className="note-footer">
-            <span className="note-date">
+          <div className={styles['note-footer']}>
+            <span className={styles['note-date']}>
                 {formatDate(note.createdAt)}
             </span>
             
-            <div className="note-actions">
+            <div className={styles['note-actions']}>
                 {/* DELETE BUTTON */}
                 <button 
-                    className="action-btn note-delete-btn"
+                    className={`${styles['action-btn']} ${styles['note-delete-btn']}`}
                     onClick={handleDeleteClick}
                     disabled={isDeleting}
                     aria-label="Delete note"
@@ -106,7 +106,7 @@ const Note = ({ note, fetchNotes }) => {
 
                 {/* EDIT BUTTON */}
                 <button 
-                    className="action-btn note-edit-btn"
+                    className={`${styles['action-btn']} ${styles['note-edit-btn']}`}
                     onClick={() => setIsEditing(true)}
                     aria-label="Edit note"
                 >

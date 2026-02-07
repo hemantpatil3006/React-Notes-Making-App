@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./NoteGroup.css";
+import styles from "./NoteGroup.module.css";
 import { MdDeleteOutline as DeleteIcon } from "react-icons/md";
 import ConfirmationModal from "./ConfirmationModal";
 
@@ -33,7 +33,7 @@ const NoteGroup = ({ group, onSelect, selectedGroup, deleteGroup }) => {
 
   return (
     <div
-      className={`note-group ${selectedGroup?._id === group._id ? 'selected' : ''}`}
+      className={`${styles['note-group']} ${selectedGroup?._id === group._id ? styles.selected : ''}`}
       onClick={onSelect}
       role="button"
       aria-label={`Select group ${group.name}`}
@@ -44,11 +44,11 @@ const NoteGroup = ({ group, onSelect, selectedGroup, deleteGroup }) => {
     >
       <div style={{ display: "flex", gap: "8px", alignItems: "center", flex: 1 }}>
         
-        <div style={{ backgroundColor: group.color }} className="group-initials">
+        <div style={{ backgroundColor: group.color }} className={styles['group-initials']}>
           {getGroupInitials(group.name)}
         </div>
         
-        <div className="group-name">{group.name}</div>
+        <div className={styles['group-name']}>{group.name}</div>
       </div>
       
       <div 

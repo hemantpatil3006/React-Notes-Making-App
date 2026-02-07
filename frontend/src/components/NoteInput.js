@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './NoteInput.css';
+import styles from './NoteInput.module.css';
 import axios from 'axios';
 import API_URL from '../utils/apiConfig';
 import { IoMdSend } from "react-icons/io"; 
@@ -35,9 +35,9 @@ const NoteInput = ({ groupId, fetchNotes }) => {
   const isActive = noteContent.trim().length > 0;
 
   return (
-    <div className='input-container'>
+    <div className={styles['input-container']}>
         <form 
-            className="note-input-form" 
+            className={styles['note-input-form']} 
             onSubmit={handleSend} 
         >
             <textarea
@@ -56,7 +56,7 @@ const NoteInput = ({ groupId, fetchNotes }) => {
             <button
                 type="submit"
                 disabled={!isActive || isLoading}
-                className={`send-btn-icon ${isActive ? 'active' : ''}`}
+                className={`${styles['send-btn-icon']} ${isActive ? styles.active : ''}`}
             >
                 <IoMdSend 
                     size={28} 

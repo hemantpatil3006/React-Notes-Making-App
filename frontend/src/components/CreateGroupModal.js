@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Modal.css";
+import styles from "./Modal.module.css";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import API_URL from "../utils/apiConfig";
@@ -62,17 +62,17 @@ const CreateGroupModal = ({ onClose, fetchGroups, onGroupsUpdate, groups }) => {
   };
 
   return ReactDOM.createPortal(
-    <div className="modal-backdrop" onClick={handleClose}>
-      <div className="modal-content create-group-modal" onClick={(e) => e.stopPropagation()}>
-        <h2 className="modal-header">Create New Group</h2>
+    <div className={styles['modal-backdrop']} onClick={handleClose}>
+      <div className={`${styles['modal-content']} ${styles['create-group-modal']}`} onClick={(e) => e.stopPropagation()}>
+        <h2 className={styles['modal-header']}>Create New Group</h2>
         <form onSubmit={handleSubmit}>
           
-          <div className="form-group">
-            <label htmlFor="groupName" className="form-label">Group Name</label>
+          <div className={styles['form-group']}>
+            <label htmlFor="groupName" className={styles['form-label']}>Group Name</label>
             <input
               type="text"
               id="groupName"
-              className="form-input"
+              className={styles['form-input']}
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
               placeholder="Enter group name"
@@ -81,13 +81,13 @@ const CreateGroupModal = ({ onClose, fetchGroups, onGroupsUpdate, groups }) => {
             />
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Pick a Group Color</label>
-            <div className="color-container">
+          <div className={styles['form-group']}>
+            <label className={styles['form-label']}>Pick a Group Color</label>
+            <div className={styles['color-container']}>
               {colors.map((c) => (
                 <div
                   key={c}
-                  className={`color-circle ${color === c ? 'selected' : ''}`}
+                  className={`${styles['color-circle']} ${color === c ? styles.selected : ''}`}
                   style={{ backgroundColor: c }}
                   onClick={() => setColor(c)}
                 />
@@ -95,8 +95,8 @@ const CreateGroupModal = ({ onClose, fetchGroups, onGroupsUpdate, groups }) => {
             </div>
           </div>
 
-          <div className="modal-actions">
-            <button type="submit" className="modal-btn create-btn">Create</button>
+          <div className={styles['modal-actions']}>
+            <button type="submit" className={`${styles['modal-btn']} ${styles['create-btn']}`}>Create</button>
           </div>
 
         </form>
